@@ -1,25 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// PlayerInput class responsible for handling input and performing player actions
+/// accordingly
+/// </summary>
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private PlayerMovement m_movement;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// error handling
+    /// </summary>
     void Start()
     {
-        if (m_movement == null)
-            Debug.LogWarning("PlayerInput: PlayerMovement not assigned!");
-
-        
+        Debug.Assert(m_movement, "PlayerInput: PlayerMovement not assigned!");
     }
 
     /// <summary>
-    /// 
+    /// input checking
     /// </summary>
     void Update()
     {
-        m_movement.Move(Input.GetAxisRaw("Horizontal"));
+        if (m_movement)
+        {
+            // perform horizontal movement (Left+Right, A+D)
+            if (Input.GetAxisRaw("Horizontal") != 0)
+                m_movement.Move(Input.GetAxisRaw("Horizontal"));
+
+            // perform jump (Space)
+            if (Input.GetKeyDown(KeyCode.Space))
+                m_movement.Jump();
+        }
     }
 }
