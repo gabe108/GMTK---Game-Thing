@@ -1,6 +1,12 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+public enum WallSide
+{
+    Left,
+    Right
+}
+
 /// <summary>
 /// PlayerMovement class responsible for performing horizontal movement and jumps
 /// </summary>
@@ -19,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Wall Jumping")]
     [SerializeField] private float m_wallJumpLerp = 10;
+    private WallSide m_lastWallSide;
     private bool m_hasWallJumped = false;
 
     //[Header("Wall Sliding")]
@@ -133,18 +140,23 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void WallJump()
     {
-        if (m_hasWallJumped)
+        bool m_isRightWall = m_playerCollision.GetIsOnRightWall();
+
+        WallSide wallSide = m_isRightWall ? WallSide.Right : WallSide.Left;
+
+        if (m_hasWallJumped && wallSide == m_lastWallSide)
             return;
 
         StartCoroutine(DisableMovement());
         
-        Vector2 direction = m_playerCollision.GetIsOnRightWall() ? Vector2.left : Vector2.right;
+        Vector2 direction = m_isRightWall ? Vector2.left : Vector2.right;
 
         // perform jump
         Jump((Vector2.up / 1.5f) + (direction / 1.5f));
 
         // can't wall jump again until landed
         m_hasWallJumped = true;
+        m_lastWallSide = wallSide;
     }
 
     /// <summary>
