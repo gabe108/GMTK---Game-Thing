@@ -4,18 +4,20 @@
 /// PlayerInput class responsible for handling input and performing player actions
 /// accordingly
 /// </summary>
+[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerCollision))]
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private PlayerMovement m_movement;
-    [SerializeField] private PlayerCollision m_playerCollision;
+    private PlayerMovement m_movement;
+    private PlayerCollision m_playerCollision;
 
     /// <summary>
     /// error handling
     /// </summary>
     void Start()
     {
-        Debug.Assert(m_movement, "PlayerInput: PlayerMovement not assigned!");
-        Debug.Assert(m_playerCollision, "PlayerInput: PlayerCollision not assigned!");
+        m_movement = GetComponent<PlayerMovement>();
+        m_playerCollision = GetComponent<PlayerCollision>();
     }
 
     /// <summary>
