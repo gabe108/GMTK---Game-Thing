@@ -1,41 +1,57 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 /// <summary>
 /// PlayerMovement class responsible for performing horizontal movement and jumps
 /// </summary>
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerCollision))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float m_movementSpeed = 10;
+    private bool m_canMove = true;
 
     [Header("Jumping")]
-    [SerializeField] private float m_jumpHeight = 1;
-    [SerializeField] private float m_gravity = -98;
-    [Tooltip("The distance of the raycast which checks whether the player is grounded")]
-    [SerializeField] private float m_groundedDistance = 0.1f;
+    [SerializeField] private float m_jumpVelocity = 10;
+    [SerializeField] private float m_fallMultiplier = 2.5f;
+    [SerializeField] private float m_lowJumpMultiplier = 2.0f;
 
-    private CharacterController m_characterController;
-    private Vector3 m_velocity;
+    [Header("Wall Jumping")]
+    [SerializeField] private float m_wallJumpLerp = 10;
+    private bool m_hasWallJumped = false;
+
+    //[Header("Wall Sliding")]
+    private float m_slideSpeed = 1;
+    private IEnumerator m_wallSlideDisabled;
+    private bool m_canWallSlide = true;
+
+    private Rigidbody2D m_rigidbody2D;
+    private PlayerCollision m_playerCollision;
 
     /// <summary>
-    /// cache CharacterController component
+    /// 
     /// </summary>
     private void Start()
     {
-        m_characterController = GetComponent<CharacterController>();
+        m_rigidbody2D = GetComponent<Rigidbody2D>();
+        m_playerCollision = GetComponent<PlayerCollision>();
     }
 
     /// <summary>
-    /// apply gravity
+    /// 
     /// </summary>
     private void Update()
     {
-        // apply gravity
-        m_velocity.y += m_gravity * Time.deltaTime;
+        BetterJumping();
 
-        // perform movement
-        m_characterController.Move(m_velocity * Time.deltaTime);
+        if (m_playerCollision.GetIsGrounded())
+            m_hasWallJumped = false;
+        //else if (m_playerCollision.GetIsOnWall())
+        //{
+        //    WallSlide();
+        //}
+        
     }
 
     /// <summary>
@@ -44,32 +60,100 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="xAxis">value between -1 and 1 (left and right)</param>
     public void Move(float xAxis)
     {
-        Vector3 direction = new Vector3(xAxis, 0, 0);
+        if (!m_canMove)
+            return;
 
         // perform movement
-        m_characterController.Move(direction * m_movementSpeed * Time.deltaTime);
-
-        // face relevant direction
-        transform.forward = direction;
+        if (!m_hasWallJumped)
+            m_rigidbody2D.velocity = new Vector2(xAxis * m_movementSpeed, m_rigidbody2D.velocity.y);
+        else
+            m_rigidbody2D.velocity = Vector2.Lerp(m_rigidbody2D.velocity, (new Vector2(xAxis * m_movementSpeed, m_rigidbody2D.velocity.y)), m_wallJumpLerp * Time.deltaTime);
     }
 
     /// <summary>
     /// use this to perform a jump!
     /// </summary>
-    public void Jump()
+    public void Jump(Vector2 direction)
     {
-        // give boost in vertical velocity to perform jump
-        if (IsGrounded())
-            m_velocity.y = Mathf.Sqrt(m_jumpHeight * m_gravity * -2.0f);
+        m_rigidbody2D.velocity = new Vector2(m_rigidbody2D.velocity.x, 0);
+        m_rigidbody2D.velocity += direction * m_jumpVelocity;
     }
 
     /// <summary>
-    /// helper function which performs a Raycast to check if the player is grounded
-    /// (or close to grounded)
+    /// modify jump falling for juiciness
     /// </summary>
-    /// <returns>true if grounded, false if airborne</returns>
-    private bool IsGrounded()
+    private void BetterJumping()
+    {       
+        // hold jump to fall for longer, or press to fall quicker
+        if (m_rigidbody2D.velocity.y < 0)
+            m_rigidbody2D.velocity += ModifiedGravity(m_fallMultiplier); // hold jump to fall slower
+        else if (m_rigidbody2D.velocity.y > 0 && !Input.GetButton("Jump"))
+            m_rigidbody2D.velocity += ModifiedGravity(m_lowJumpMultiplier); // or press it quickly for a low jump
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void WallSlide()
     {
-        return Physics.Raycast(transform.position, Vector3.down, m_groundedDistance);
+        if (!m_canWallSlide)
+            return;
+
+        bool isPushingWall = false;
+
+        // determine whether the player is trying to push on the wall
+        if ((m_rigidbody2D.velocity.x > 0 && m_playerCollision.GetIsOnRightWall()) ||
+            (m_rigidbody2D.velocity.x < 0 && m_playerCollision.GetIsOnLeftWall()))
+            isPushingWall = true;
+
+        Debug.Log("Is Pushing Wall: " + isPushingWall);
+        // if the player is pushing on the wall, let them slide (0), otherwise let them jump away
+        //float push = isPushingWall ? 0 : m_rigidbody2D.velocity.x;
+
+        // adjust y velocity to simulate sliding
+        m_rigidbody2D.velocity = new Vector2(m_rigidbody2D.velocity.x, -m_slideSpeed);
+    }
+
+    private IEnumerator DisableWallSliding(float duration = 0.1f)
+    {
+        m_canWallSlide = false;
+        yield return new WaitForSeconds(duration);
+        m_canWallSlide = true;
+    }
+
+    private IEnumerator DisableMovement(float duration = 0.1f)
+    {
+        m_canMove = false;
+        yield return new WaitForSeconds(duration);
+        m_canMove = true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void WallJump()
+    {
+        if (m_hasWallJumped)
+            return;
+
+        StartCoroutine(DisableMovement());
+        
+        Vector2 direction = m_playerCollision.GetIsOnRightWall() ? Vector2.left : Vector2.right;
+
+        // perform jump
+        Jump((Vector2.up / 1.5f) + (direction / 1.5f));
+
+        // can't wall jump again until landed
+        m_hasWallJumped = true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="multiplier"></param>
+    /// <returns></returns>
+    private Vector2 ModifiedGravity(float multiplier)
+    {
+        return Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
     }
 }
