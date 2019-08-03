@@ -12,7 +12,7 @@ public class Spikes : BaseHazard
 	private PlayerDeath m_playerDeath;
 	private float m_startTime;
 	private float m_journeyLength;
-	private int m_looped;
+	private bool m_looped;
 
 	// Start is called before the first frame update
 	void Start()
@@ -29,14 +29,21 @@ public class Spikes : BaseHazard
 			m_timer += Time.deltaTime;
 		}
 
-		if (m_timer > m_delay)
+		if (m_looped)
+			Evaluate();
+
+		if (m_timer > m_delay && !m_looped)
 		{
+			m_timer = 0f;
+			m_startTimer = false;
 			m_playerDeath.Die();
+			Evaluate();
 		}
 	}
 
 	public override void Evaluate()
 	{
+		m_looped = true;
 		float distCovered = (Time.time - m_startTime) * m_speed;
 		float fracJourney = distCovered / m_journeyLength;
 
@@ -48,9 +55,16 @@ public class Spikes : BaseHazard
 			m_positionTwo = m_positionOne;
 			m_positionOne = temp;
 
+			m_startTimer = true;
+
 			CalculateDuration();
-			m_looped++;
+			m_looped = false;
 		}
+	}
+
+	public void RePosition()
+	{
+
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
