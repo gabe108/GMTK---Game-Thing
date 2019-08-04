@@ -1,28 +1,15 @@
 fileFormatVersion: 2
-guid: 8d3576b58008b564ab1919e3cd09cdc6
+guid: b225f57547da0b04883b99a9b8792c09
 TextureImporter:
   fileIDToRecycleName:
-    21300000: tex_stone_0
-    21300002: tex_stone_1
-    21300004: tex_stone_2
-    21300006: tex_stone_3
-    21300008: tex_stone_4
-    21300010: tex_stone_5
-    21300012: tex_stone_6
-    21300014: tex_stone_7
-    21300016: tex_stone_8
-    21300018: tex_stone_9
-    21300020: tex_stone_10
-    21300022: tex_stone_11
-    21300024: tex_stone_12
-    21300026: tex_stone_13
-    21300028: tex_stone_14
-    21300030: tex_stone_15
-    21300032: tex_stone_16
-    21300034: tex_stone_17
-    21300036: tex_stone_18
-    21300038: tex_stone_19
-    21300040: tex_stone_20
+    21300000: tex_spikes_0
+    21300002: tex_spikes_1
+    21300004: tex_spikes_2
+    21300006: tex_spikes_3
+    21300008: tex_spikes_4
+    21300010: tex_spikes_5
+    21300012: tex_spikes_6
+    21300014: tex_spikes_7
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -105,7 +92,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tex_stone_0
+      name: tex_spikes_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,13 +106,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7de8a3b6ec59f83418a1d1185a981e8b
+      spriteID: 8c82f14ac1926bf40bcb3a8d01faa5a2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_stone_1
+      name: tex_spikes_1
       rect:
         serializedVersion: 2
         x: 16
@@ -139,33 +126,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 552a35537c846bc4685891df3c953064
+      spriteID: afd04244a61294943b6da1af6597bf50
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_stone_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 48
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d035e84e673a9f948993199fb9ff7ff3
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_stone_3
+      name: tex_spikes_2
       rect:
         serializedVersion: 2
         x: 0
@@ -179,13 +146,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddcd6d5c3cb5a164db8a91d71af28d95
+      spriteID: 060dd0993d032c0478f5eca087d6b0c9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_stone_4
+      name: tex_spikes_3
       rect:
         serializedVersion: 2
         x: 16
@@ -199,33 +166,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 234a53c5f91588040baa570021110fa4
+      spriteID: 283ee403f7be5394282fc2b7eb26bf61
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_stone_5
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b11e7a9d7b2dc148a8c7881b8a17ba9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_stone_6
+      name: tex_spikes_4
       rect:
         serializedVersion: 2
         x: 0
@@ -239,13 +186,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 784f3660542440e44b7d60ac4f787937
+      spriteID: af3fe590d46e54f4c8df317115588f62
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_stone_7
+      name: tex_spikes_5
       rect:
         serializedVersion: 2
         x: 16
@@ -259,33 +206,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 915fcc4603fe9434daa8499849aeba33
+      spriteID: 19bde8f110cc4bb47b4f53e0b263c02b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_stone_8
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49ef53a5a1e15204abe523d415c23bea
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_stone_9
+      name: tex_spikes_6
       rect:
         serializedVersion: 2
         x: 0
@@ -299,13 +226,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9925c932b5756064d9610be90f59a5f3
+      spriteID: c11ecf8a51793e648850eb1f5dbf1429
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_stone_10
+      name: tex_spikes_7
       rect:
         serializedVersion: 2
         x: 16
@@ -319,7 +246,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46f5b3891710e0f48b28c0913f8b3982
+      spriteID: 7c16b199e9b054d49baa94b675dcc94e
       vertices: []
       indices: 
       edges: []
@@ -327,7 +254,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a22c7e25bb6294141999312587b22795
+    spriteID: 081c64e784619ae4393536bf7819a771
     vertices: []
     indices: 
     edges: []
