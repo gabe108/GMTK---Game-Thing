@@ -17,7 +17,8 @@ public class Flag : MonoBehaviour
 		}
 
 		// TODO once per death placement
-		if (Input.GetKeyDown(KeyCode.E) && m_parent != null && m_timer > 0.5f)
+		if (Input.GetKeyDown(KeyCode.E) && m_parent != null && m_timer > 0.5f
+			&& !PlayerMovement.GetWhetherOrNotThePlayerIsAirborneOrNotForGabe())
 		{
 			//TODO bounce Things cuz Bruno said so
 

@@ -21,6 +21,7 @@ public class CrumblingPlatform : MonoBehaviour
 			Vector3 temp = Vector3.zero;
 			temp.x = (width + m_offset) * i;
 			m_crumbles[i].position += temp;
+			m_crumbles[i].GetComponent<Crumbles>().SetInitialPos(m_crumbles[i].localPosition);
 		}
 	}
 }
