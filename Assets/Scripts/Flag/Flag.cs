@@ -6,10 +6,16 @@ public class Flag : MonoBehaviour
 {
 	private PlayerInput m_parent;
 	private float m_timer;
+	private Transform m_initialPos;
 	private bool m_startTimer;
 
-    // Update is called once per frame
-    void Update()
+	private void Start()
+	{
+		m_initialPos = transform;
+	}
+
+	// Update is called once per frame
+	void Update()
 	{
 		if (m_startTimer)
 		{
@@ -44,6 +50,7 @@ public class Flag : MonoBehaviour
 				Vector3 pos = m_parent.m_flagSpawn.position;
 				gameObject.transform.SetPositionAndRotation(pos, Quaternion.identity);
 				gameObject.transform.SetParent(m_parent.transform);
+				SpawnManager.GetInstance().SetFlagSpawnPoint(null);
 				m_startTimer = true;
 			}
 		}

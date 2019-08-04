@@ -72,5 +72,6 @@ public class SpawnManager : MonoBehaviour
         GameObject player = Instantiate(m_playerPrefab);
         player.transform.position = m_startingSpawnPoint.position;
         m_camera.SetObjectOfInterest(player.transform);
-    }
+		m_startingSpawnPoint = transform;
+	}
 }
