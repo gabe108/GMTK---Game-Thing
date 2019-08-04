@@ -35,6 +35,7 @@ public class Flag : MonoBehaviour
 			m_parent = null;
 			SpawnManager.GetInstance().SetFlagSpawnPoint(transform);
 			SpawnManager.GetInstance().SetCanPlaceFlag(false);
+			ScoreManager.GetInstance().IncrementFlagsPlanted();
 		}
 	}
 
