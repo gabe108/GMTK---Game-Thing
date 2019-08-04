@@ -127,6 +127,13 @@ public class PlayerMovement : MonoBehaviour
         if (!m_canMove)
             return;
 
+        if ((m_playerCollision.GetIsOnLeftCorner() || m_playerCollision.GetIsOnRightCorner()) &&
+            !m_playerCollision.GetIsGrounded() && !m_playerCollision.GetIsOnWall())
+        {
+            Debug.Log("Test");
+            return;
+        }
+
         if (xAxis != 0)
         {
             if (m_playerCollision.GetIsGrounded())
@@ -253,6 +260,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 scale = m_sprite.localScale;
         scale.x *= -1;
         m_sprite.localScale = scale;
+        scale.x *= -1;
 
         // if the player is holding flag 
         Flag flag = GetComponentInChildren<Flag>();
