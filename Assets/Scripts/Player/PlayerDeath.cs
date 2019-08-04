@@ -27,5 +27,6 @@ public class PlayerDeath : MonoBehaviour
         m_darkness.ResetDarkness(spawnPoint);
 
 		SpawnManager.GetInstance().SetCanPlaceFlag(true);
+        ScoreManager.GetInstance().IncrementDeaths();
 	}
 }
