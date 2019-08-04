@@ -129,7 +129,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 6e0c1155e1facb3419c3423ce1afbdca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -233,7 +233,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.00092352927, y: -0.19067979}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -244,7 +244,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6262101, y: 0.48674798}
   m_EdgeRadius: 0.01
 --- !u!114 &8419351588153645368
 MonoBehaviour:
@@ -258,6 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27bfc85ed1a1394381d77f20eafd466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_coyoteJumpTimeframe: 0.1
   m_flagReset: {fileID: 1304854388334047468}
   m_flagSpawn: {fileID: 8062300807652053038}
 --- !u!114 &8419351588153645364
@@ -272,10 +273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c5b5cab43dffe549b0d48822077bb24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_movementSpeed: 6
-  m_jumpVelocity: 5
+  m_movementSpeed: 4
+  m_jumpVelocity: 8
   m_fallMultiplier: 3
-  m_lowJumpMultiplier: 2.5
+  m_lowJumpMultiplier: 2
   m_wallJumpLerp: 2
   m_sprite: {fileID: 8419351587611569740}
 --- !u!114 &8419351588153645367
@@ -291,8 +292,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bottomOffset: {x: 0, y: -0.5}
-  m_leftOffset: {x: -0.5, y: 0}
-  m_rightOffset: {x: 0.5, y: 0}
+  m_leftOffset: {x: -0.3, y: 0}
+  m_rightOffset: {x: 0.3, y: 0}
   m_collisionRadius: 0.25
   m_groundLayer:
     serializedVersion: 2
