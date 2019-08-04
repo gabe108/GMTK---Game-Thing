@@ -12,6 +12,10 @@ public class Spikes : BaseHazard
 	private PlayerDeath m_playerDeath;
 	private float m_startTime;
 	private float m_journeyLength;
+	/// <summary>
+	/// 
+	/// 
+	/// </summary>
 	private bool m_looped;
 
 	// Start is called before the first frame update
