@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrumblingPlatform : MonoBehaviour
 {
-	[Range(0,1)]
+	[Range(1,2)]
 	[SerializeField] private float m_offset;
 	private List<Transform> m_crumbles = new List<Transform>();
 
@@ -21,6 +21,7 @@ public class CrumblingPlatform : MonoBehaviour
 			Vector3 temp = Vector3.zero;
 			temp.x = (width + m_offset) * i;
 			m_crumbles[i].position += temp;
+			m_crumbles[i].GetComponent<Crumbles>().SetInitialPos(m_crumbles[i].localPosition);
 		}
 	}
 }

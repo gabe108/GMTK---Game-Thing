@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: tex_dirt_4
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300008, guid: 6fb55aff42582ca47877d68c3336970e, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 2d71943b5b867524095514bf615b1524, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

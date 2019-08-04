@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerDeath : MonoBehaviour
 {
+    [SerializeField] private UnityEvent m_onDeath;
+
     private Darkness m_darkness;
 
     private void Start()
@@ -25,5 +28,10 @@ public class PlayerDeath : MonoBehaviour
 
         // do other reset stuffs here, such as darkness reset
         m_darkness.ResetDarkness(spawnPoint);
-    }
+
+		SpawnManager.GetInstance().SetCanPlaceFlag(true);
+        ScoreManager.GetInstance().IncrementDeaths();
+
+        m_onDeath.Invoke();
+	}
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// PlayerInput class responsible for handling input and performing player actions
@@ -8,8 +10,17 @@
 [RequireComponent(typeof(PlayerCollision))]
 public class PlayerInput : MonoBehaviour
 {
+    [Header("Input Shenanigans")]
+    [SerializeField] private float m_coyoteJumpTimeframe = 0.1f;
+    [SerializeField] private UnityEvent m_onLand;
+    private bool m_canJump = true;
+
     private PlayerMovement m_movement;
     private PlayerCollision m_playerCollision;
+
+    [Header("Flag Transforms")]
+	public Transform m_flagReset;
+	public Transform m_flagSpawn;
 
     /// <summary>
     /// error handling
@@ -25,6 +36,16 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // coyote jump - if the player can jump but they've left the ground, prevent
+        // them from jumping after an arbritrary amount of time
+        if (m_canJump && !m_playerCollision.GetIsGrounded())
+            StartCoroutine(CoyoteJumpWindow());
+        else if (!m_canJump && m_playerCollision.GetIsGrounded())
+        {
+            m_canJump = true;
+            m_onLand.Invoke();
+        }
+
         if (m_movement)
         {
             float xAxis = Input.GetAxisRaw("Horizontal");
@@ -40,11 +61,21 @@ public class PlayerInput : MonoBehaviour
             // perform jump (Space)
             if (Input.GetButtonDown("Jump"))
             {
-                if (m_playerCollision.GetIsGrounded())
+                if (m_canJump)
                     m_movement.Jump(Vector2.up);
                 else if (m_playerCollision.GetIsOnWall())
                     m_movement.WallJump();
             }
         }
+    }
+
+    /// <summary>
+    /// disable jumping after an arbritrary amount of time
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator CoyoteJumpWindow()
+    {
+        yield return new WaitForSeconds(m_coyoteJumpTimeframe);
+        m_canJump = false;
     }
 }
