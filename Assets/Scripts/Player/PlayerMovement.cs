@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     // helpful bools
     private bool m_canMove = true;
-    private bool m_isAirborne = false;
+    private static bool m_isAirborne = false;
     private bool m_hasWallJumped = false;
 
     [SerializeField] private Transform m_sprite;
@@ -56,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D m_rigidbody2D;
     private PlayerAnimation m_playerAnimation;
     private PlayerCollision m_playerCollision;
+
+    public static bool GetWhetherOrNotThePlayerIsAirborneOrNotForGabe() { return m_isAirborne; }
 
     /// <summary>
     /// cache required components
@@ -89,12 +91,18 @@ public class PlayerMovement : MonoBehaviour
 
             switch (m_playerState)
             {
+                case PlayerState.Idle:
+                    m_isAirborne = false;
+                    break;
+
                 case PlayerState.Walk:
                     m_playerAnimation.SetIsWalking(true);
+                    m_isAirborne = false;
                     break;
 
                 case PlayerState.Wall:
                     m_playerAnimation.SetIsOnWall(true);
+                    m_isAirborne = false;
                     break;
 
                 case PlayerState.Rising:

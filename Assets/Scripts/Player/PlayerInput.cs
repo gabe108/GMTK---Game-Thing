@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// PlayerInput class responsible for handling input and performing player actions
@@ -11,6 +12,7 @@ public class PlayerInput : MonoBehaviour
 {
     [Header("Input Shenanigans")]
     [SerializeField] private float m_coyoteJumpTimeframe = 0.1f;
+    [SerializeField] private UnityEvent m_onLand;
     private bool m_canJump = true;
 
     private PlayerMovement m_movement;
@@ -39,7 +41,10 @@ public class PlayerInput : MonoBehaviour
         if (m_canJump && !m_playerCollision.GetIsGrounded())
             StartCoroutine(CoyoteJumpWindow());
         else if (!m_canJump && m_playerCollision.GetIsGrounded())
+        {
             m_canJump = true;
+            m_onLand.Invoke();
+        }
 
         if (m_movement)
         {
