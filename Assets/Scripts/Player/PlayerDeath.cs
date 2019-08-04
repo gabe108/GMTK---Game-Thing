@@ -2,6 +2,13 @@
 
 public class PlayerDeath : MonoBehaviour
 {
+    private Darkness m_darkness;
+
+    private void Start()
+    {
+        m_darkness = FindObjectOfType<Darkness>();
+    }
+
     /// <summary>
     /// use this to "kill" the player!
     /// </summary>
@@ -17,6 +24,6 @@ public class PlayerDeath : MonoBehaviour
         spawnManager.SetCanPlaceFlag(true);
 
         // do other reset stuffs here, such as darkness reset
-        //
+        m_darkness.ResetDarkness(spawnPoint);
     }
 }
