@@ -16,12 +16,14 @@ public class Crumbles : MonoBehaviour
 	private Color m_material;
 	private Vector3 m_initialPosition;
 	private Renderer m_renderer;
+	private BoxCollider2D m_collider;
 
 	public void SetInitialPos(Vector3 _pos) { m_initialPosition = _pos; }
 
 	private void Start()
 	{
 		m_renderer = m_rigidbody.GetComponent<Renderer>();
+		m_collider = m_rigidbody.GetComponent<BoxCollider2D>();
 	}
 
 	private void Update()
@@ -52,11 +54,16 @@ public class Crumbles : MonoBehaviour
 		m_rigidbody.constraints = RigidbodyConstraints2D.None | 
 								  RigidbodyConstraints2D.FreezePositionX | 
 								  RigidbodyConstraints2D.FreezeRotation;
+
+		if (m_collider.isActiveAndEnabled)
+			m_collider.enabled = false;
+
 		m_material = m_renderer.material.color;
 
 		StartCoroutine(FadeTo(0.0f, m_DestroyDelay));
 		yield return new WaitForSeconds(m_DestroyDelay);
 
+		m_collider.enabled = true;
 		StartCoroutine(FadeTo(1.0f, m_DestroyDelay));
 		transform.localPosition = m_initialPosition;
 		m_rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
