@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417c8edfc4044034c893b0d05591d767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_startOffset: {x: -10, y: 0, z: 0}
+  m_startOffset: {x: -30, y: 0, z: 0}
   m_direction: {x: 1, y: 0, z: 0}
   m_defaultSpeed: 1
   m_flagSpeed: 0.5
