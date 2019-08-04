@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
 
     [Header("Player To Spawn")]
     [SerializeField] private GameObject m_playerPrefab;
+    [SerializeField] private DynamicCamera m_camera;
 
     [Header("Initial Spawn")]
     [SerializeField] private Transform m_startingSpawnPoint;
@@ -70,5 +71,6 @@ public class SpawnManager : MonoBehaviour
     {
         GameObject player = Instantiate(m_playerPrefab);
         player.transform.position = m_startingSpawnPoint.position;
+        m_camera.SetObjectOfInterest(player.transform);
     }
 }
