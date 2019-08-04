@@ -14,7 +14,6 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private LayerMask m_groundLayer;
     
     private bool m_isGrounded;
-    private bool m_isOnWall;
     private bool m_isOnRightWall;
     private bool m_isOnLeftWall;
 

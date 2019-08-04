@@ -6,6 +6,15 @@ public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator m_animator;
 
+    public void Reset()
+    {
+        // isn't doing anything
+        m_animator.SetBool("IsFalling", false);
+        m_animator.SetBool("IsRising", false);
+        m_animator.SetBool("IsOnWall", false);
+        m_animator.SetBool("IsWalking", false);
+    }
+
     public void SetJump()
     {
         m_animator.SetTrigger("Jump");
@@ -16,56 +25,23 @@ public class PlayerAnimation : MonoBehaviour
         m_animator.SetTrigger("Land");
     }
 
-    public void SetIsIdle()
+    public void SetIsFalling(bool value)
     {
-        // isn't doing anything
-        m_animator.SetBool("IsFalling", false);
-        m_animator.SetBool("IsRising", false);
-        m_animator.SetBool("IsOnWall", false);
-        m_animator.SetBool("IsWalking", false);
+        m_animator.SetBool("IsFalling", value);
     }
 
-    public void SetIsFalling()
+    public void SetIsRising(bool value)
     {
-        // is falling
-        m_animator.SetBool("IsFalling", true);
-
-        // isn't doing anything else
-        m_animator.SetBool("IsRising", false);
-        m_animator.SetBool("IsOnWall", false);
-        m_animator.SetBool("IsWalking", false);
+        m_animator.SetBool("IsRising", value);
     }
 
-    public void SetIsRising()
+    public void SetIsOnWall(bool value)
     {
-        // is rising
-        m_animator.SetBool("IsRising", true);
-
-        // isn't doing anything else
-        m_animator.SetBool("IsFalling", false);
-        m_animator.SetBool("IsOnWall", false);
-        m_animator.SetBool("IsWalking", false);
+        m_animator.SetBool("IsOnWall", value);
     }
 
-    public void SetIsOnWall()
+    public void SetIsWalking(bool value)
     {
-        // is on wall
-        m_animator.SetBool("IsOnWall", true);
-
-        // isn't doing anything else
-        m_animator.SetBool("IsFalling", false);
-        m_animator.SetBool("IsRising", false);
-        m_animator.SetBool("IsWalking", false);
-    }
-
-    public void SetIsWalking()
-    {
-        // is walking
-        m_animator.SetBool("IsWalking", true);
-
-        // isn't doing anything else
-        m_animator.SetBool("IsFalling", false);
-        m_animator.SetBool("IsRising", false);
-        m_animator.SetBool("IsOnWall", false);
+        m_animator.SetBool("IsWalking", value);
     }
 }
