@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private UnityEvent m_onDeath;
+    [SerializeField] private Transform m_graveStone;
 
     private Darkness m_darkness;
 
@@ -18,7 +19,8 @@ public class PlayerDeath : MonoBehaviour
     public void Die()
     {
         SpawnManager spawnManager = SpawnManager.GetInstance();
-
+		Transform go = Instantiate(m_graveStone, transform.position, Quaternion.identity);
+		go.gameObject.SetActive(true);
         // respawn at the relevant spawn point
         Transform spawnPoint = spawnManager.GetSpawnPoint();
         transform.position = spawnPoint.position;
@@ -31,6 +33,7 @@ public class PlayerDeath : MonoBehaviour
 
 		SpawnManager.GetInstance().SetCanPlaceFlag(true);
         ScoreManager.GetInstance().IncrementDeaths();
+
 
         m_onDeath.Invoke();
 	}
