@@ -7,6 +7,17 @@ public enum WallSide
     Right
 }
 
+public enum PlayerState
+{
+    Idle,
+    Walk,
+    Wall,
+    Jumping,
+    Rising,
+    Falling,
+    Landing
+}
+
 /// <summary>
 /// PlayerMovement class responsible for performing horizontal movement and jumps
 /// </summary>
@@ -17,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float m_movementSpeed = 10;
-    private bool m_canMove = true;
 
     [Header("Jumping")]
     [SerializeField] private float m_jumpVelocity = 10;
@@ -28,24 +38,24 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float m_wallJumpLerp = 10;
     private WallSide m_lastWallSide;
 
-    //[Header("Wall Sliding")]
-    private float m_slideSpeed = 1;
-    private IEnumerator m_wallSlideDisabled;
+    private PlayerState m_playerState = PlayerState.Idle;
+    private PlayerState m_previousState = PlayerState.Idle;
 
     // helpful bools
+    private bool m_canMove = true;
     private bool m_isAirborne = false;
     private bool m_hasWallJumped = false;
-    private bool m_canWallSlide = true;
 
     [SerializeField] private Transform m_sprite;
     private bool m_isFacingRight = false;
 
+    // components
     private Rigidbody2D m_rigidbody2D;
     private PlayerAnimation m_playerAnimation;
     private PlayerCollision m_playerCollision;
 
     /// <summary>
-    /// 
+    /// cache required components
     /// </summary>
     private void Start()
     {
@@ -65,8 +75,33 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (m_playerCollision.GetIsOnWall())
         {
-            m_playerAnimation.SetIsOnWall();
+            m_playerState = PlayerState.Wall;
             WallSlide();
+        }
+
+        if (m_previousState != m_playerState)
+        {
+            m_previousState = m_playerState;
+            m_playerAnimation.Reset();
+
+            switch (m_playerState)
+            {
+                case PlayerState.Walk:
+                    m_playerAnimation.SetIsWalking(true);
+                    break;
+
+                case PlayerState.Wall:
+                    m_playerAnimation.SetIsOnWall(true);
+                    break;
+
+                case PlayerState.Rising:
+                    m_playerAnimation.SetIsRising(true);
+                    break;
+
+                case PlayerState.Falling:
+                    m_playerAnimation.SetIsFalling(true);
+                    break;
+            }
         }
 
         BetterJumping();
@@ -83,7 +118,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (xAxis != 0)
         {
-            m_playerAnimation.SetIsWalking();
+            if (m_playerCollision.GetIsGrounded())
+                m_playerState = PlayerState.Walk;
 
             if (!m_isFacingRight && xAxis < 0)
                 FlipSprite();
@@ -91,7 +127,10 @@ public class PlayerMovement : MonoBehaviour
                 FlipSprite();
         }
         else
-            m_playerAnimation.SetIsIdle();
+        {
+            if (m_playerCollision.GetIsGrounded())
+                m_playerState = PlayerState.Idle;
+        }
 
         // perform movement
         if (!m_hasWallJumped)
@@ -105,8 +144,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void Jump(Vector2 direction)
     {
-        if (!m_playerCollision.GetIsOnWall())
-            m_playerAnimation.SetJump();
+        m_playerAnimation.SetJump();
 
         m_isAirborne = true;
 
@@ -125,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Falling");
 
             if (!m_playerCollision.GetIsOnWall())
-                m_playerAnimation.SetIsFalling();
+                m_playerState = PlayerState.Falling;
 
             m_rigidbody2D.velocity += ModifiedGravity(m_fallMultiplier); // hold jump to fall slower
         }
@@ -136,36 +174,15 @@ public class PlayerMovement : MonoBehaviour
         else if (m_rigidbody2D.velocity.y > 0)
         {
             Debug.Log("Rising");
+
             if (!m_playerCollision.GetIsOnWall())
-                m_playerAnimation.SetIsRising();
+                m_playerState = PlayerState.Rising;
         }
-        else if (m_rigidbody2D.velocity.y == 0)
-            m_playerAnimation.SetIsIdle();
     }
 
     /// <summary>
     /// 
     /// </summary>
-    //private void WallSlide()
-    //{
-    //    if (!m_canWallSlide)
-    //        return;
-
-    //    bool isPushingWall = false;
-
-    //    // determine whether the player is trying to push on the wall
-    //    if ((m_rigidbody2D.velocity.x > 0 && m_playerCollision.GetIsOnRightWall()) ||
-    //        (m_rigidbody2D.velocity.x < 0 && m_playerCollision.GetIsOnLeftWall()))
-    //        isPushingWall = true;
-
-    //    Debug.Log("Is Pushing Wall: " + isPushingWall);
-    //    // if the player is pushing on the wall, let them slide (0), otherwise let them jump away
-    //    //float push = isPushingWall ? 0 : m_rigidbody2D.velocity.x;
-
-    //    // adjust y velocity to simulate sliding
-    //    m_rigidbody2D.velocity = new Vector2(m_rigidbody2D.velocity.x, -m_slideSpeed);
-    //}
-
     private void WallSlide()
     {
         bool isRightWall = m_playerCollision.GetIsOnRightWall();
@@ -181,13 +198,6 @@ public class PlayerMovement : MonoBehaviour
             if (!m_isFacingRight)
                 FlipSprite();
         }
-    }
-
-    private IEnumerator DisableMovement(float duration = 0.1f)
-    {
-        m_canMove = false;
-        yield return new WaitForSeconds(duration);
-        m_canMove = true;
     }
 
     /// <summary>
@@ -218,20 +228,34 @@ public class PlayerMovement : MonoBehaviour
         m_lastWallSide = wallSide;
     }
 
+    #region helper functions
+
     /// <summary>
-    /// 
+    /// helper function which flips a sprite in the x axis
     /// </summary>
     private void FlipSprite()
     {
         m_isFacingRight = !m_isFacingRight;
 
+        // perform flip
         Vector2 scale = m_sprite.localScale;
         scale.x *= -1;
         m_sprite.localScale = scale;
     }
 
     /// <summary>
-    /// 
+    /// helper function which disables movement for an arbritrary amount of time (walljump)
+    /// </summary>
+    /// <param name="duration">the amount of time to disable movement for</param>
+    private IEnumerator DisableMovement(float duration = 0.1f)
+    {
+        m_canMove = false; // can't move
+        yield return new WaitForSeconds(duration); // wait
+        m_canMove = true; // can move
+    }
+
+    /// <summary>
+    /// modified gravity formula
     /// </summary>
     /// <param name="multiplier"></param>
     /// <returns></returns>
@@ -239,4 +263,6 @@ public class PlayerMovement : MonoBehaviour
     {
         return Vector2.up * Physics2D.gravity.y * (multiplier - 1) * Time.deltaTime;
     }
+
+    #endregion
 }

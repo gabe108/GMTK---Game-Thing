@@ -10,6 +10,8 @@ public class PlayerInput : MonoBehaviour
 {
     private PlayerMovement m_movement;
     private PlayerCollision m_playerCollision;
+	public Transform m_flagReset;
+	public Transform m_flagSpawn;
 
     /// <summary>
     /// error handling

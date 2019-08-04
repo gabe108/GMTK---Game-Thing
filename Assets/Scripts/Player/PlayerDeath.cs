@@ -25,5 +25,7 @@ public class PlayerDeath : MonoBehaviour
 
         // do other reset stuffs here, such as darkness reset
         m_darkness.ResetDarkness(spawnPoint);
-    }
+
+		SpawnManager.GetInstance().SetCanPlaceFlag(true);
+	}
 }
