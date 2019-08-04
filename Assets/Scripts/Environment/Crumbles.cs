@@ -7,10 +7,11 @@ public class Crumbles : MonoBehaviour
 {
 	[Range(0,1)]
 	[SerializeField] private float m_delay;
-
+	[Range(0,1)]
+	[SerializeField] private float m_DestroyDelay;
 	[SerializeField] private Rigidbody2D m_rigidbody;
-	[SerializeField] private float m_timer;
 
+	private float m_timer;
 	private bool m_timerStart;
 
 	private void Update()
@@ -28,9 +29,12 @@ public class Crumbles : MonoBehaviour
 		}
 	}
 
-	private void Drop()
+	IEnumerator Drop()
 	{
 		m_rigidbody.constraints = RigidbodyConstraints2D.None;
+
+		yield return new WaitForSeconds(m_DestroyDelay);
+
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

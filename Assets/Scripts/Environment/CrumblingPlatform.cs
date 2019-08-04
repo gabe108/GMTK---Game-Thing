@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CrumblingPlatform : MonoBehaviour
 {
-	[Range(0,1)]
+	[Range(1,2)]
 	[SerializeField] private float m_offset;
 	private List<Transform> m_crumbles = new List<Transform>();
 
