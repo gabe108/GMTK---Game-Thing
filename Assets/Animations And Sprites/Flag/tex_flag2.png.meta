@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 6e0c1155e1facb3419c3423ce1afbdca
+guid: db2b1336c8cb675448ebfa06329dcdfa
 TextureImporter:
   fileIDToRecycleName:
-    21300000: tex_player_idle_0
-    21300002: tex_player_idle_1
-    21300004: tex_player_idle_2
-    21300006: tex_player_idle_3
-    21300008: tex_player_idle_4
-    21300010: tex_player_idle_5
+    21300000: tex_flag2_0
+    21300002: tex_flag2_1
+    21300004: tex_flag2_2
+    21300006: tex_flag2_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -48,7 +46,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -90,67 +88,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tex_player_idle_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be318df3828c6b9469d00687ca69a8a4
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_player_idle_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7c0609feb3314c14c8e94e2be3c6ca54
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_player_idle_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: adbe16034102fbe4e8628148e7978c1b
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tex_player_idle_3
+      name: tex_flag2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -164,13 +102,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d72ec2dcbe0e794eba1bbdfd3b7f50f
+      spriteID: 19b6cce573617824ab9d01a9bcec396c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_player_idle_4
+      name: tex_flag2_1
       rect:
         serializedVersion: 2
         x: 16
@@ -184,13 +122,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e27198df4c1844d4981ea4bd1b0bb271
+      spriteID: 63625ff97bfc14646bcdb2edc4ef8b39
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: tex_player_idle_5
+      name: tex_flag2_2
       rect:
         serializedVersion: 2
         x: 32
@@ -204,7 +142,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2c93b556117e0945bd7b2528d7bbf63
+      spriteID: bca3027dc4ff1e641a0850b683371804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tex_flag2_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1c34c36e06753643849874c2f68ec1b
       vertices: []
       indices: 
       edges: []
@@ -212,7 +170,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e6aed0ce43dd03b43a7d2e458ded1bbe
+    spriteID: 3ef1729a27242544d8774932742c1d2c
     vertices: []
     indices: 
     edges: []
