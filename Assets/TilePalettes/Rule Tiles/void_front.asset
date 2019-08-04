@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
-  m_Name: void_body
+  m_Name: void_front
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_MinSpeed: 1
-  m_MaxSpeed: 1
+  - {fileID: 21300018, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300020, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300022, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300024, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300026, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300028, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300030, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300032, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300034, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  m_MinSpeed: 5
+  m_MaxSpeed: 10
   m_AnimationStartTime: 0
   m_TileColliderType: 0

@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: void_body
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_MinSpeed: 1
-  m_MaxSpeed: 1
+  - {fileID: 21300000, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300002, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300004, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300006, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300008, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300010, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300012, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300014, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  - {fileID: 21300016, guid: 23054367d31d70649a2824b0eaeb404c, type: 3}
+  m_MinSpeed: 5
+  m_MaxSpeed: 20
   m_AnimationStartTime: 0
   m_TileColliderType: 0
