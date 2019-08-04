@@ -79,7 +79,7 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &7478298575347515162
@@ -121,8 +121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_delay: 0.2
+  m_DestroyDelay: 1
   m_rigidbody: {fileID: 7478298575347515160}
-  m_timer: 0
 --- !u!50 &7478298575347515160
 Rigidbody2D:
   serializedVersion: 4
@@ -188,4 +188,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6476879451156941beea9b3e39603d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_offset: 0.2
+  m_offset: 1.1
