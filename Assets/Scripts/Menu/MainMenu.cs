@@ -6,7 +6,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject m_mainMenu;
     [SerializeField] private GameObject m_settingsMenu;
 
-    public void StartGame()
+	private void Start()
+	{
+		Time.timeScale = 1f;
+	}
+
+	public void StartGame()
     {
         SceneManager.LoadScene("Game");
 		Time.timeScale = 1f;

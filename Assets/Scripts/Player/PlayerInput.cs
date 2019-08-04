@@ -10,7 +10,9 @@ using UnityEngine.Events;
 [RequireComponent(typeof(PlayerCollision))]
 public class PlayerInput : MonoBehaviour
 {
-    [Header("Input Shenanigans")]
+	public bool m_isCarryingFlag { get; internal set; }
+
+	[Header("Input Shenanigans")]
     [SerializeField] private float m_coyoteJumpTimeframe = 0.1f;
     [SerializeField] private UnityEvent m_onLand;
     private bool m_canJump = true;

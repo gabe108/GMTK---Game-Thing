@@ -32,6 +32,7 @@ public class Flag : MonoBehaviour
 			gameObject.transform.SetPositionAndRotation(pos, Quaternion.identity);
 			m_timer = 0f;
 			m_startTimer = false;
+			m_parent.m_isCarryingFlag = false;
 			m_parent = null;
 			SpawnManager.GetInstance().SetFlagSpawnPoint(transform);
 			SpawnManager.GetInstance().SetCanPlaceFlag(false);
@@ -48,6 +49,7 @@ public class Flag : MonoBehaviour
 
 			if (m_parent != null)
 			{
+				m_parent.m_isCarryingFlag = true;
 				Vector3 pos = m_parent.m_flagSpawn.position;
 				gameObject.transform.SetPositionAndRotation(pos, Quaternion.identity);
 				gameObject.transform.SetParent(m_parent.transform);

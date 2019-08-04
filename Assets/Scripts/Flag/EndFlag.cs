@@ -15,7 +15,8 @@ public class EndFlag : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.transform.CompareTag("Player"))
+		if(collision.transform.CompareTag("Player")
+			&& collision.transform.GetComponent<PlayerInput>().m_isCarryingFlag)
 		{
 			m_darkness.SetSpeed(0f);
 			m_reachedEnd = true;
