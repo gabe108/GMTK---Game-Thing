@@ -273,9 +273,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_movementSpeed: 6
-  m_jumpVelocity: 8
-  m_fallMultiplier: 4
-  m_lowJumpMultiplier: 3
+  m_jumpVelocity: 7
+  m_fallMultiplier: 3
+  m_lowJumpMultiplier: 2.5
   m_wallJumpLerp: 2
   m_sprite: {fileID: 8419351587611569740}
 --- !u!114 &8419351588153645367
