@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum WallSide
 {
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Wall Jumping")]
     [SerializeField] private float m_wallJumpLerp = 10;
     private WallSide m_lastWallSide;
+
+    [SerializeField] private UnityEvent m_onJump;
 
     private PlayerState m_playerState = PlayerState.Idle;
     private PlayerState m_previousState = PlayerState.Idle;
@@ -145,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump(Vector2 direction)
     {
         m_playerAnimation.SetJump();
+        m_onJump.Invoke();
 
         m_isAirborne = true;
 
