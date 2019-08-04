@@ -102,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
 
                 case PlayerState.Wall:
                     m_playerAnimation.SetIsOnWall(true);
-                    m_isAirborne = false;
                     break;
 
                 case PlayerState.Rising:
