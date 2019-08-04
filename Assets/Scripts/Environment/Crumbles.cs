@@ -13,6 +13,16 @@ public class Crumbles : MonoBehaviour
 
 	private float m_timer;
 	private bool m_timerStart;
+	private Color m_material;
+	private Vector3 m_initialPosition;
+	private Renderer m_renderer;
+
+	public void SetInitialPos(Vector3 _pos) { m_initialPosition = _pos; }
+
+	private void Start()
+	{
+		m_renderer = m_rigidbody.GetComponent<Renderer>();
+	}
 
 	private void Update()
 	{
@@ -23,18 +33,10 @@ public class Crumbles : MonoBehaviour
 
 		if (m_timer > m_delay)
 		{
-			Drop();
+			StartCoroutine("Drop");
 			m_timer = 0f;
 			m_timerStart = false;
 		}
-	}
-
-	IEnumerator Drop()
-	{
-		m_rigidbody.constraints = RigidbodyConstraints2D.None;
-
-		yield return new WaitForSeconds(m_DestroyDelay);
-
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -43,5 +45,31 @@ public class Crumbles : MonoBehaviour
 
 		if(m_isPlayer)
 			m_timerStart = true;
+	}
+
+	IEnumerator Drop()
+	{
+		m_rigidbody.constraints = RigidbodyConstraints2D.None | 
+								  RigidbodyConstraints2D.FreezePositionX | 
+								  RigidbodyConstraints2D.FreezeRotation;
+		m_material = m_renderer.material.color;
+
+		StartCoroutine(FadeTo(0.0f, m_DestroyDelay));
+		yield return new WaitForSeconds(m_DestroyDelay);
+
+		StartCoroutine(FadeTo(1.0f, m_DestroyDelay));
+		transform.localPosition = m_initialPosition;
+		m_rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+	}
+
+	IEnumerator FadeTo(float aValue, float aTime)
+	{
+		float alpha = m_material.a;
+		for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
+		{
+			Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
+			m_renderer.material.color = newColor;
+			yield return null;
+		}
 	}
 }

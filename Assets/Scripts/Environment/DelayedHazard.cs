@@ -33,6 +33,7 @@ public class DelayedHazard : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		m_startTimer = true;
+		if(collision.transform.CompareTag("Player"))
+			m_startTimer = true;
 	}
 }

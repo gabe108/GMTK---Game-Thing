@@ -4,85 +4,44 @@ using UnityEngine;
 
 public class Spikes : BaseHazard
 {
-	[SerializeField] private Transform m_thingToMove;
-	[SerializeField] private Transform m_positionOne;
-	[SerializeField] private Transform m_positionTwo;
-	[SerializeField] private float m_speed = 1.0f;
-
-	private PlayerDeath m_playerDeath;
-	private float m_startTime;
-	private float m_journeyLength;
-	/// <summary>
-	/// 
-	/// 
-	/// </summary>
-	private bool m_looped;
-
-	// Start is called before the first frame update
-	void Start()
-    {
-		CalculateDuration();
-		m_thingToMove.position = m_positionOne.position;
-	}
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(m_startTimer)
+	private Animator m_anim;
+	private void Start()
+	{
+		m_anim = transform.GetComponent<Animator>(); ;
+		if (m_anim != null)
 		{
-			m_timer += Time.deltaTime;
-		}
-
-		if (m_looped)
-			Evaluate();
-
-		if (m_timer > m_delay && !m_looped)
-		{
-			m_timer = 0f;
-			m_startTimer = false;
-			m_playerDeath.Die();
-			Evaluate();
+			m_anim.SetBool(0, false);
 		}
 	}
 
 	public override void Evaluate()
 	{
-		m_looped = true;
-		float distCovered = (Time.time - m_startTime) * m_speed;
-		float fracJourney = distCovered / m_journeyLength;
+		Transform spikes = transform;
 
-		m_thingToMove.position = Vector3.Lerp(m_positionOne.position, m_positionTwo.position, fracJourney);
-
-		if (m_thingToMove.position == m_positionTwo.position)
+		if (spikes != null)
 		{
-			Transform temp = m_positionTwo;
-			m_positionTwo = m_positionOne;
-			m_positionOne = temp;
-
-			m_startTimer = true;
-
-			CalculateDuration();
-			m_looped = false;
+			if (m_anim != null)
+			{
+				m_anim.SetBool("PlayAnim", true);
+				StartCoroutine(ResetAnim());
+			}
 		}
 	}
 
-	public void RePosition()
+	IEnumerator ResetAnim()
 	{
-
+		yield return new WaitForSeconds(1f);
+		if (m_anim != null)
+		{
+			m_anim.SetBool("PlayAnim", false);
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.CompareTag("Player"))
+		if (collision.transform.CompareTag("Player"))
 		{
-			m_startTimer = true;
-			m_playerDeath = collision.gameObject.GetComponent<PlayerDeath>();
+			collision.transform.GetComponent<PlayerDeath>().Die();
 		}
-	}
-
-	private void CalculateDuration()
-	{
-		m_startTime = Time.time;
-		m_journeyLength = Vector3.Distance(m_positionOne.position, m_positionTwo.position);
 	}
 }
