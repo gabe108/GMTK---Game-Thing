@@ -1,32 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class DynamicCamera : MonoBehaviour
 {
-    private class XYBounds
-    {
-        public Vector2 min, max;
-
-        public XYBounds(float xMin, float xMax, float yMin, float yMax)
-        {
-            min.x = xMin;
-            min.y = yMin;
-            max.x = xMax;
-            max.y = yMax;
-        }
-    }
-
     [SerializeField] private Vector3 m_offset;
+    private Vector3 m_velocity;
 
     // camera reference
     private Camera m_camera;
 
     // objects to follow
     private Transform m_objectToFollow;
-    private Vector3 m_velocity;
-    //private List<Transform> m_objectsOfInterest;
 
     #region setters
 
@@ -42,29 +26,25 @@ public class DynamicCamera : MonoBehaviour
         m_camera = GetComponent<Camera>();
     }
 
+    /// <summary>
+    /// perform delayed follow
+    /// </summary>
     private void LateUpdate()
     {
         if (m_objectToFollow)
             Move();
     }
 
+    /// <summary>
+    /// perform follow
+    /// </summary>
     private void Move()
     {
+        // determine desired position
         Vector3 centrePoint = m_objectToFollow.position;
         centrePoint += m_offset;
 
+        // smoothly lerp to desired position
         m_camera.transform.position = Vector3.SmoothDamp(m_camera.transform.position, centrePoint, ref m_velocity, 0.5f);
     }
-
-    //private Vector2 GetCentrePoint()
-    //{
-    //    XYBounds bounds = GetXYBounds();
-
-    //    float xCentre = (bounds.min.x + bounds.max.x) * 0.5f;
-    //    float yCentre = (bounds.min.y + bounds.max.y) * 0.5f;
-
-    //    return new Vector2(xCentre, yCentre);
-    //}
-
-    //private XYBounds
 }
