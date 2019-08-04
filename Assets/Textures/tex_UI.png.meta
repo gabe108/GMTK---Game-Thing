@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-guid: 2b69ad16b10072943a1e45b90dbde277
-=======
-guid: 940b0775197a697458477d28c938179c
->>>>>>> Stashed changes
+guid: 1f9aac96ee025df4582098d2a59cefe3
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -86,11 +82,7 @@ TextureImporter:
     weights: []
   spritePackingTag: 
   pSDRemoveMatte: 0
-<<<<<<< Updated upstream
-  pSDShowRemoveMatteOption: 1
-=======
   pSDShowRemoveMatteOption: 0
->>>>>>> Stashed changes
   userData: 
   assetBundleName: 
   assetBundleVariant: 
