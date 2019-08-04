@@ -260,13 +260,14 @@ public class PlayerMovement : MonoBehaviour
         Vector2 scale = m_sprite.localScale;
         scale.x *= -1;
         m_sprite.localScale = scale;
+        scale.x *= -1;
 
         // if the player is holding flag 
         Flag flag = GetComponentInChildren<Flag>();
 
         // flip it too 
         if (flag)
-            flag.transform.localScale = -scale;
+            flag.transform.localScale = scale;
     }
 
     /// <summary>
