@@ -12,6 +12,12 @@ public class DynamicCamera : MonoBehaviour
     // objects to follow
     private Transform m_objectToFollow;
 
+    //speed scale scale
+    public float scale;
+
+    //distance to object
+    private float distance;
+
     #region setters
 
     public void SetObjectOfInterest(Transform objectOfInterest) { m_objectToFollow = objectOfInterest; }
@@ -26,6 +32,11 @@ public class DynamicCamera : MonoBehaviour
         m_camera = GetComponent<Camera>();
     }
 
+    private void FixedUpdate()
+    {
+        distance = Vector3.Distance(transform.position, m_objectToFollow.position);
+    }
+
     /// <summary>
     /// perform delayed follow
     /// </summary>
@@ -33,6 +44,8 @@ public class DynamicCamera : MonoBehaviour
     {
         if (m_objectToFollow)
             Move();
+
+        
     }
 
     /// <summary>
@@ -45,6 +58,6 @@ public class DynamicCamera : MonoBehaviour
         centrePoint += m_offset;
 
         // smoothly lerp to desired position
-        m_camera.transform.position = Vector3.SmoothDamp(m_camera.transform.position, centrePoint, ref m_velocity, 0.5f);
+        m_camera.transform.position = Vector3.SmoothDamp(m_camera.transform.position, centrePoint, ref m_velocity, distance*scale);
     }
 }
