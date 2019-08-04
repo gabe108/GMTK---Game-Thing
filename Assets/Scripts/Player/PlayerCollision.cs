@@ -8,7 +8,10 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private Vector2 m_bottomOffset;
     [SerializeField] private Vector2 m_leftOffset;
     [SerializeField] private Vector2 m_rightOffset;
+    [SerializeField] private Vector2 m_leftCornerOffset;
+    [SerializeField] private Vector2 m_rightCornerOffset;
     [SerializeField] private float m_collisionRadius;
+    [SerializeField] private float m_cornerCollisionRadius = 0.01f;
 
     [Header("Layer Mask")]
     [SerializeField] private LayerMask m_groundLayer;
@@ -16,6 +19,8 @@ public class PlayerCollision : MonoBehaviour
     private bool m_isGrounded;
     private bool m_isOnRightWall;
     private bool m_isOnLeftWall;
+    private bool m_isOnRightCorner;
+    private bool m_isOnLeftCorner;
 
     #region getters
 
@@ -23,6 +28,8 @@ public class PlayerCollision : MonoBehaviour
     public bool GetIsOnWall() { return m_isOnLeftWall || m_isOnRightWall; }
     public bool GetIsOnLeftWall() { return m_isOnLeftWall; }
     public bool GetIsOnRightWall() { return m_isOnRightWall; }
+    public bool GetIsOnLeftCorner() { return m_isOnLeftCorner; }
+    public bool GetIsOnRightCorner() { return m_isOnRightCorner; }
 
     #endregion
 
@@ -39,5 +46,8 @@ public class PlayerCollision : MonoBehaviour
         // detect wall collision
         m_isOnLeftWall = Physics2D.OverlapCircle(position + m_leftOffset, m_collisionRadius, m_groundLayer);
         m_isOnRightWall =  Physics2D.OverlapCircle(position + m_rightOffset, m_collisionRadius, m_groundLayer);
+
+        m_isOnLeftCorner = Physics2D.OverlapCircle(position + m_leftCornerOffset, m_cornerCollisionRadius, m_groundLayer);
+        m_isOnLeftCorner = Physics2D.OverlapCircle(position + m_rightCornerOffset, m_cornerCollisionRadius, m_groundLayer);
     }
 }
