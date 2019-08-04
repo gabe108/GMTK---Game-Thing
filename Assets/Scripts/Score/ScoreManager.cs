@@ -83,8 +83,6 @@ public class ScoreManager : MonoBehaviour
 		PlayerPrefs.SetInt("High Time", m_highTime);
 		PlayerPrefs.SetInt("High Deaths", m_highDeaths);
 		PlayerPrefs.SetInt("High Flags", m_highFlags);
-
-		m_endFlag.m_reachedEnd = false;
 	}
 
 	/// <summary>

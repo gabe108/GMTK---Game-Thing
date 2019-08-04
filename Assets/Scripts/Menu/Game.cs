@@ -32,7 +32,10 @@ public class Game : MonoBehaviour
 			PauseMenu(!(m_pauseMenu.activeSelf));
 
 		if (m_endFlag.m_reachedEnd)
+		{
 			GameWin();
+			m_endFlag.m_reachedEnd = false;
+		}
     }
 
     public void ResumeGame()
@@ -98,5 +101,10 @@ public class Game : MonoBehaviour
 		m_gameWin.SetActive(false);
 
 		m_previousMenu.SetActive(true);
+	}
+
+	public void Exit()
+	{
+		Application.Quit();
 	}
 }
