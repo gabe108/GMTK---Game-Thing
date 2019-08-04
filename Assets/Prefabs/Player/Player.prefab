@@ -245,7 +245,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.01
 --- !u!114 &8419351588153645368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_movementSpeed: 6
-  m_jumpVelocity: 7
+  m_jumpVelocity: 5
   m_fallMultiplier: 3
   m_lowJumpMultiplier: 2.5
   m_wallJumpLerp: 2
