@@ -127,34 +127,41 @@ public class PlayerMovement : MonoBehaviour
         if (!m_canMove)
             return;
 
-        if ((m_playerCollision.GetIsOnLeftCorner() || m_playerCollision.GetIsOnRightCorner()) &&
-            !m_playerCollision.GetIsGrounded() && !m_playerCollision.GetIsOnWall())
-        {
-            Debug.Log("Test");
-            return;
-        }
+		try
+		{
+			if ((m_playerCollision.GetIsOnLeftCorner() || m_playerCollision.GetIsOnRightCorner()) &&
+				!m_playerCollision.GetIsGrounded() && !m_playerCollision.GetIsOnWall())
+			{
+				Debug.Log("Test");
+				return;
+			}
 
-        if (xAxis != 0)
-        {
-            if (m_playerCollision.GetIsGrounded())
-                m_playerState = PlayerState.Walk;
+			if (xAxis != 0)
+			{
+				if (m_playerCollision.GetIsGrounded())
+					m_playerState = PlayerState.Walk;
 
-            if (!m_isFacingRight && xAxis < 0)
-                FlipSprite();
-            else if (m_isFacingRight && xAxis > 0)
-                FlipSprite();
-        }
-        else
-        {
-            if (m_playerCollision.GetIsGrounded())
-                m_playerState = PlayerState.Idle;
-        }
+				if (!m_isFacingRight && xAxis < 0)
+					FlipSprite();
+				else if (m_isFacingRight && xAxis > 0)
+					FlipSprite();
+			}
+			else
+			{
+				if (m_playerCollision.GetIsGrounded())
+					m_playerState = PlayerState.Idle;
+			}
 
-        // perform movement
-        if (!m_hasWallJumped)
-            m_rigidbody2D.velocity = new Vector2(xAxis * m_movementSpeed, m_rigidbody2D.velocity.y);
-        else
-            m_rigidbody2D.velocity = Vector2.Lerp(m_rigidbody2D.velocity, (new Vector2(xAxis * m_movementSpeed, m_rigidbody2D.velocity.y)), m_wallJumpLerp * Time.deltaTime);
+			// perform movement
+			if (!m_hasWallJumped)
+				m_rigidbody2D.velocity = new Vector2(xAxis * m_movementSpeed, m_rigidbody2D.velocity.y);
+			else
+				m_rigidbody2D.velocity = Vector2.Lerp(m_rigidbody2D.velocity, (new Vector2(xAxis * m_movementSpeed, m_rigidbody2D.velocity.y)), m_wallJumpLerp * Time.deltaTime);
+		}
+		catch(System.Exception e)
+		{
+
+		}
     }
 
     /// <summary>
