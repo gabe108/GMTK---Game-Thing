@@ -127,6 +127,13 @@ public class PlayerMovement : MonoBehaviour
         if (!m_canMove)
             return;
 
+        if ((m_playerCollision.GetIsOnLeftCorner() || m_playerCollision.GetIsOnRightCorner()) &&
+            !m_playerCollision.GetIsGrounded() && !m_playerCollision.GetIsOnWall())
+        {
+            Debug.Log("Test");
+            return;
+        }
+
         if (xAxis != 0)
         {
             if (m_playerCollision.GetIsGrounded())
@@ -259,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
 
         // flip it too 
         if (flag)
-            flag.transform.localScale = scale;
+            flag.transform.localScale = -scale;
     }
 
     /// <summary>
